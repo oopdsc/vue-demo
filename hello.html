@@ -1,24 +1,69 @@
 <html>
-    <head>
-        <title>hello vue</title>
-            <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js' type="text/javascript"></script>
 
-            
-    </head>
-    <body>
-            <div id="app">
-                    {{ message }}
-                </div>
+<head>
+    <title>hello vue</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js' type="text/javascript"></script>
+</head>
 
-                <script type="text/javascript">
-                    var app = new Vue({
-                        el: '#app',
-                        data: {
-                            message: 'Hello Vue!'
-                        }
-                    });
-                
-                </script>
-    </body>
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <div id="app-2">
+        <span v-bind:title="message2">
+            Place the mouse here to see the tips message.
+        </span>
+
+        <p v-if="seen">now you can see me</p>
+
+        <li v-for="todo in todos">
+            {{ todo.text }}
+        </li>
+
+        <p>{{ onEventMessage }}</p>
+        <button v-on:click="reverseMessage">reverse message</button>
+
+        <p>{{ modelMessage}}</p>
+        <input v-model="modelMessage">
+    </div>
+
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data:{
+                message: 'Hello Vue!'
+            }
+        });
+
+        var app2 = new Vue({
+            el: '#app-2',
+            data : {
+                message : 'Current time : ' + new Date().toLocaleString(),
+                // message2 : 'message 2 time : ' + new Date().toLocaleString(),
+                message2: app.message,
+                // message2 : app.data.message
+                seen: false,
+                todos : [
+                    {text : 'study javascript'},
+                    {text : 'study vue'},
+                    {text : 'study java'}
+                ],
+                onEventMessage : 'hello vue js',
+                modelMessage: 'hello vue!'
+            },
+
+            methods: {
+                reverseMessage: function(){
+                    this.onEventMessage = this.onEventMessage.split('').reverse().join('')
+                }
+            }
+
+
+        })
+
+    </script>
+</body>
+
 </html>
-
